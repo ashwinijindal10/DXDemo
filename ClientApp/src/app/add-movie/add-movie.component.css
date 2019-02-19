@@ -1,0 +1,32 @@
+.mat-card {
+  max-width: 600px;
+  margin: auto;
+}
+  .mat-card .full-width
+{
+  width: 100%;
+}
+
+.mat-card .small {
+    width: 30%;
+  }
+
+  .mat-card .mat-card-actions {
+    display: block;
+    text-align: right;
+  }
+
+
+.sec1 {
+ padding-right:10px
+}
+.sec2 {
+ 
+}
+.cover-card {
+  max-width: 231px;
+}
+.cover-card img {
+  min-width: 150px;
+  min-height: 150px;
+}
