@@ -26,13 +26,7 @@
           </mat-form-field>
         </div>
         <div fxFlex="50" class="sec2">
-          <mat-card class="cover-card">
-            <img mat-card-image id="converimg">
-            <mat-card-actions>
-              <button mat-button onclick="document.getElementById('get_cover_ctrl').click(); return false;">SELECT COVER</button>
-              <input id="get_cover_ctrl" type="file" (change)="fileChangeEvent($event)" accept="image/x-png,image/jpeg" style="display:none" />
-            </mat-card-actions>
-          </mat-card>
+           <app-uploader></app-uploader>
         </div>
       </div>
 
