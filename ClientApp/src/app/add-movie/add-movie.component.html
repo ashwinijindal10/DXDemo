@@ -2,7 +2,7 @@
   <mat-card-title>New Movie </mat-card-title>
   <mat-card-content>
     <form [formGroup]="formGroup" (ngSubmit)="onSubmit(formGroup.value)" class="form">
-    
+
 
       <div class="content"
            fxLayout="row"
@@ -18,7 +18,7 @@
           <mat-form-field>
             <input matInput placeholder="Year of Release" formControlName="year_of_release">
             <mat-error align="right" *ngIf="!formGroup.get('year_of_release').valid && formGroup.get('year_of_release').touched">
-                please select year of release
+              please select year of release
             </mat-error>
           </mat-form-field>
           <mat-form-field>
@@ -26,16 +26,29 @@
           </mat-form-field>
         </div>
         <div fxFlex="50" class="sec2">
-           <app-uploader></app-uploader>
+          <app-uploader></app-uploader>
         </div>
       </div>
-      <mat-form-field class="full-width">
-        <input matInput placeholder="Director" formControlName="director">
-      </mat-form-field>
-      <mat-form-field class="full-width">
-        <input matInput placeholder="actors" formControlName="actors">
-      </mat-form-field>
-
+      <div class="full-width">
+        <mat-form-field style="width:80%">
+            <mat-select formControlName="producer" placeholder="Producer">
+                <mat-option *ngFor="let item of procedures" [value]="item.value">
+                  {{item.name}}
+                </mat-option>
+             </mat-select>
+        </mat-form-field>
+        <button mat-button  (click)="addProducer()"><mat-icon>add</mat-icon>Add</button>
+      </div>
+      <div class="full-width">
+        <mat-form-field style="width:80%">
+            <mat-select formControlName="actors" placeholder="Actors" multiple>
+                <mat-option *ngFor="let item of actors" [value]="item.value">
+                  {{item.name}}
+                </mat-option>
+             </mat-select>
+        </mat-form-field>
+        <button mat-button (click)="addActor()"><mat-icon>add</mat-icon>Add</button>
+      </div>
     </form>
   </mat-card-content>
   <mat-card-actions>

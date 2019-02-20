@@ -6,8 +6,6 @@ import { ActorListComponent } from './actor-list/actor-list.component';
 import { DirectorListComponent } from './director-list/director-list.component';
 import { AddMovieComponent } from './add-movie/add-movie.component';
 
-
-
 const routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
   { path: 'add-movie', component: AddMovieComponent },

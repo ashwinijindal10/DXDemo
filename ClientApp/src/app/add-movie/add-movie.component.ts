@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatSnackBar } from '@angular/material';
-import {  Validators, FormBuilder, FormGroup } from '@angular/forms';
-//import { RepDialogComponent } from '../rep-dialog/rep-dialog.component';
+import { Validators, FormBuilder, FormGroup } from '@angular/forms';
+import { AddPersonComponent } from '../add-person/add-person.component';
+import {  PersonType, Person } from '../models/model';
 
 @Component({
   selector: 'app-add-movie',
@@ -11,33 +12,17 @@ import {  Validators, FormBuilder, FormGroup } from '@angular/forms';
 export class AddMovieComponent implements OnInit {
   post: any = '';
   formGroup: FormGroup;
+  procedures: Person[]=[];
+  actors: Person[]=[];
 
   constructor(
     private formBuilder: FormBuilder,
     private snackbar: MatSnackBar,
-    private mDialog: MatDialog,) {
-
+    private mDialog: MatDialog) {
   }
 
   ngOnInit() {
     this.createForm();
-    this.setChangeValidate()
-    //this.emailFormCtrl = new FormControl('', [
-    //  Validators.required,
-    //  Validators.email
-    //]);
-    //this.FirstCtrl = new FormControl('', [
-    //  Validators.required
-    //]);
-    //this.LastCtrl = new FormControl('', [
-    //  Validators.required
-    //]);
-    //this.AddressCtrl = new FormControl('', [
-    //  Validators.required
-    //]);
-    //this.PhoneCtrl = new FormControl('', [
-    //  Validators.required
-    //]);
   }
 
 
@@ -48,39 +33,16 @@ export class AddMovieComponent implements OnInit {
       'plot': [null],
       'actors': [null],
       'poster': [null],
-      'director': [null],
+      'producer': [null],
     });
   }
 
-  setChangeValidate() {
-    //this.formGroup.get('validate').valueChanges.subscribe(
-    //  (validate) => {
-    //    if (validate == '1') {
-    //      this.formGroup.get('name').setValidators([Validators.required, Validators.minLength(3)]);
-    //      this.titleAlert = "You need to specify at least 3 characters";
-    //    } else {
-    //      this.formGroup.get('name').setValidators(Validators.required);
-    //    }
-    //    this.formGroup.get('name').updateValueAndValidity();
-    //  }
-    //)
-  }
 
   onSubmit(post) {
     this.post = post;
   }
 
 
-  openRepDialog() {
-  //  const dialogRef = this.mDialog.open(RepDialogComponent, {
-  //    width: '200px',
-  //    data: {}
-  //  });
-
-  //  dialogRef.afterClosed().subscribe(res => {
-  //    alert(`user choosed ${res}`)
-  //  })
-  }
 
   openSnackbar() {
     const refSnackbar = this.snackbar.open("Movie Saved", "UNDO", {
@@ -93,7 +55,34 @@ export class AddMovieComponent implements OnInit {
     });
   }
 
-  
+  openRepDialog(type) {
+    const dialogRef = this.mDialog.open(AddPersonComponent, {
+      width: '400px',
+      data: {
+        type
+      }
+    });
+    dialogRef.updatePosition({ top: '5%' });
 
-    
+    dialogRef.afterClosed().subscribe(res => {
+      if (PersonType.Actor)
+          this.actors.push(res);
+      else
+          this.procedures.push(res);
+
+    });
+  }
+
+  addProducer() {
+    this.openRepDialog(PersonType.Producer);
+    return false;
+  }
+
+  addActor() {
+    this.openRepDialog(PersonType.Actor);
+    return false;
+  }
 }
+
+
+

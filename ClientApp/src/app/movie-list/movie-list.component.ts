@@ -11,7 +11,7 @@ export class MovieListComponent implements OnInit {
     { title: 'xx2' },
     { title: 'xx3' },
     { title: 'xx4' }
-  ]
+  ];
 
   constructor() { }
 

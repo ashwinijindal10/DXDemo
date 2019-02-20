@@ -5,11 +5,11 @@ export class Person {
   bio: string;
 }
 
-export class Actor extends Person {
-}
+// export class Actor extends Person {
+// }
 
-export class Producer extends Person {
-}
+// export class Producer extends Person {
+// }
 
 export class Movie {
   name: string;
@@ -19,3 +19,7 @@ export class Movie {
 }
 
 
+export enum PersonType{
+  Producer ='p',
+  Actor='a'
+}
