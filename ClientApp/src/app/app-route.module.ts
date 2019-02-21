@@ -8,7 +8,8 @@ import { AddMovieComponent } from './add-movie/add-movie.component';
 
 const routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
-  { path: 'add-movie', component: AddMovieComponent },
+  { path: 'movies/add', component: AddMovieComponent },
+  { path: 'movies/edit/:id', component: AddMovieComponent },
   { path: 'movies', component: MovieListComponent },
   { path: 'directors', component: DirectorListComponent },
   { path: 'actors', component: ActorListComponent },

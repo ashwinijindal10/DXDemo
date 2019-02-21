@@ -8,7 +8,7 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'Movie World';
   routes = [
-    { title: 'Add New Movie', url: '/add-movie', icon: 'add' },
+    { title: 'Add New Movie', url: '/movies/add', icon: 'add' },
     { title: 'Movies', url: '/movies', icon: 'movie' },
     { title: 'Actors', url: '/actors', icon: 'local_movies' },
     { title: 'Director', url: '/directors', icon: 'movie_filter' },

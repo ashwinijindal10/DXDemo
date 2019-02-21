@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialog, MatSnackBar } from '@angular/material';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { AddPersonComponent } from '../add-person/add-person.component';
-import {  PersonType, Person } from '../models/model';
+import { PersonType, Person, ActionStatus } from '../models/model';
+import { MovieService } from '../shared/services/movie.service';
+import { MessageService } from '../shared/services/message.service';
+import { PopupService } from '../shared/services/popup.service';
 
 @Component({
   selector: 'app-add-movie',
@@ -16,13 +18,18 @@ export class AddMovieComponent implements OnInit {
   actors: Person[]=[];
 
   constructor(
+    private movieSvc:MovieService,
+    private popupSvc :PopupService,
     private formBuilder: FormBuilder,
-    private snackbar: MatSnackBar,
-    private mDialog: MatDialog) {
+    private msgSvc :MessageService,
+    ) {
   }
 
   ngOnInit() {
     this.createForm();
+    this.movieSvc.getMovies().subscribe(f=>{
+
+    })
   }
 
 
@@ -40,46 +47,32 @@ export class AddMovieComponent implements OnInit {
 
   onSubmit(post) {
     this.post = post;
+    this.msgSvc.ShowMsg("Movie saved successfully",ActionStatus.Success);
+    return false;
   }
 
 
-
-  openSnackbar() {
-    const refSnackbar = this.snackbar.open("Movie Saved", "UNDO", {
-      horizontalPosition: 'end',
-      duration: 2000
-    });
-
-    refSnackbar.onAction().subscribe(() => {
-      alert('undo that saved');
-    });
-  }
-
-  openRepDialog(type) {
-    const dialogRef = this.mDialog.open(AddPersonComponent, {
-      width: '400px',
-      data: {
-        type
-      }
-    });
-    dialogRef.updatePosition({ top: '5%' });
-
-    dialogRef.afterClosed().subscribe(res => {
-      if (PersonType.Actor)
-          this.actors.push(res);
-      else
-          this.procedures.push(res);
-
-    });
+  openRepDialog(type:PersonType) {
+    this.popupSvc.showPopup(AddPersonComponent,{type},
+      (res: Person) => {
+        if (type==PersonType.Actor)
+            this.actors.push(res);
+        else
+            this.procedures.push(res);
+  
+      })
+   
   }
 
   addProducer() {
     this.openRepDialog(PersonType.Producer);
+    this.msgSvc.ShowMsg("Producer saved successfully",ActionStatus.Success);
     return false;
   }
 
   addActor() {
     this.openRepDialog(PersonType.Actor);
+    this.msgSvc.ShowMsg("Actor saved successfully",ActionStatus.Success);
     return false;
   }
 }
